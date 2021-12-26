@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+dir = File.expand_path(File.dirname(__FILE__))
+require dir + '/../lib/lrb.rb'
+
+require 'oyster'
+spec = Oyster.spec do
+  name "lrb -- Lisp to ruby transformation"#, v. #{Heist::VERSION}"
+  author 'The Trung <deulamco@mail.com>'
+  
+  synopsis <<-EOS
+    lrb -i [OPTIONS]
+    lrb FILE_NAME [OPTIONS]
+  EOS
+  
+  flag :debug, :desc => 'Start an interactive Lrb debug session'
+end
+
+require "rubygems"
+
+begin
+  options = spec.parse
+  version = Gem.loaded_specs["lrb"].version.to_s
+  
+  if options[:unclaimed].empty?
+    puts "lrb #{version} #{'DEBUG' if options[:debug]} REPL".light_yellow
+    Lrb.new.repl
+  else
+    puts "lrb #{version} COMPILE".light_yellow
+    lrb = Lrb.new
+    lrb.eval_file File.expand_path(options[:unclaimed].first)
+  end
+
+rescue Oyster::HelpRendered
+end
