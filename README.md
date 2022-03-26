@@ -1,5 +1,7 @@
 # Lispy Ruby
-[LRB] transform Ruby to a Lisp with braces, remain all ruby keywords and same funtionalities.
+[LRB] transform Ruby to a Lisp with braces, remain all ruby keywords and same funtionalities. 
+
+Gem: https://rubygems.org/gems/lrb
 
 \* Install:
 
